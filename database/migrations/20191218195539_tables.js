@@ -17,10 +17,15 @@ exports.up = function(knex) {
 
       tbl.string("punchline", 255).notNullable();
 
+      // joke public or private defaults to false (public)
+      tbl
+        .string("private", 128)
+        .notNullable()
+        .defaultTo("false");
+
       tbl
         .integer("user_id")
         .unsigned()
-        .notNullable()
         .references("users.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");

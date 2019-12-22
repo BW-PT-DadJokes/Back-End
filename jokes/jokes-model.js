@@ -4,11 +4,13 @@ module.exports = {
   addJoke,
   findJoke,
   findJokeBy,
-  findJokeById
+  findJokeById,
+  updateJoke,
+  deleteJoke
 };
 
 function findJoke() {
-  return db("jokes").select("id", "question", "punchline");
+  return db("jokes");
 }
 
 function findJokeBy(filter) {
@@ -18,11 +20,23 @@ function findJokeBy(filter) {
 async function addJoke(joke) {
   const [id] = await db("jokes").insert(joke);
 
-  return findById(id);
+  return findJokeById(id);
 }
 
 function findJokeById(id) {
   return db("jokes")
     .where({ id })
     .first();
+}
+
+function updateJoke(updatedJoke, id) {
+  return db("jokes")
+    .where({ id })
+    .update(updatedJoke);
+}
+
+function deleteJoke(id) {
+  return db("jokes")
+    .where({ id })
+    .del();
 }
