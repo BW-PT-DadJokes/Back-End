@@ -2,8 +2,6 @@ const router = require("express").Router();
 const Jokes = require("./jokes-model.js");
 const restricted = require("../auth/restricted-middleware.js");
 
-const jwt = require("jsonwebtoken");
-
 // add joke
 router.post("/", restricted, (req, res) => {
   const joke = req.body;
@@ -33,23 +31,17 @@ router.get("/", (req, res) => {
 
 // get all private jokes
 router.get("/userJokes", restricted, (req, res) => {
-  // const user_id = req.decodedJWT.subject;
-  // console.log(user_id);
+  const user_id = req.decodedJWT.subject;
+  console.log(user_id);
 
-  // Jokes.findJokeBy({ user_id })
-  //   .then(jokes => {
-  //     res.status(200).json(jokes);
-  //   })
-  //   .catch(error => {
-  //     console.log(error);
-  //     res.status(500).json({ message: "Could not get private jokes" });
-  //   });
-  const id = req.decodedJWT.subject;
-
-  db("jokes as j")
-    .where("j.user_id", id)
-    .then(jokes => res.status(200).json(jokes))
-    .catch(err => res.status(500).json({ error: err }));
+  Jokes.findJokeBy({ user_id })
+    .then(jokes => {
+      res.status(200).json(jokes);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({ message: "Could not get private jokes" });
+    });
 });
 
 // get joke by id
