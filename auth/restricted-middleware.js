@@ -16,6 +16,6 @@ module.exports = (req, res, next) => {
       }
     });
   } else {
-    res.status(401).json({ message: "access denied 2" });
+    res.status(401).json({ message: "access denied" });
   }
 };

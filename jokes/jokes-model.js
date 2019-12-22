@@ -4,7 +4,9 @@ module.exports = {
   addJoke,
   findJoke,
   findJokeBy,
-  findJokeById
+  findJokeById,
+  updateJoke,
+  deleteJoke
 };
 
 function findJoke() {
@@ -25,4 +27,16 @@ function findJokeById(id) {
   return db("jokes")
     .where({ id })
     .first();
+}
+
+function updateJoke(updatedJoke, id) {
+  return db("jokes")
+    .where({ id })
+    .update(updatedJoke);
+}
+
+function deleteJoke(id) {
+  return db("jokes")
+    .where({ id })
+    .del();
 }

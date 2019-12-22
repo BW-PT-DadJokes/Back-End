@@ -2,13 +2,16 @@ const router = require("express").Router();
 const Jokes = require("./jokes-model.js");
 const restricted = require("../auth/restricted-middleware.js");
 
+const jwt = require("jsonwebtoken");
+
 // add joke
 router.post("/", restricted, (req, res) => {
-  let joke = req.body;
+  const joke = req.body;
+  console.log(joke);
 
   Jokes.addJoke(joke)
-    .then(joke => {
-      res.status(201).json(joke);
+    .then(saved => {
+      res.status(201).json({ created_joke: saved });
     })
     .catch(error => {
       console.log(error);
@@ -29,19 +32,28 @@ router.get("/", (req, res) => {
 });
 
 // get all private jokes
-router.get("/", restricted, (req, res) => {
-  Jokes.findJoke()
-    .then(jokes => {
-      res.status(200).json(jokes);
-    })
-    .catch(error => {
-      console.log(error);
-      res.status(500).json({ message: "Could not get private jokes" });
-    });
+router.get("/userJokes", restricted, (req, res) => {
+  // const user_id = req.decodedJWT.subject;
+  // console.log(user_id);
+
+  // Jokes.findJokeBy({ user_id })
+  //   .then(jokes => {
+  //     res.status(200).json(jokes);
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //     res.status(500).json({ message: "Could not get private jokes" });
+  //   });
+  const id = req.decodedJWT.subject;
+
+  db("jokes as j")
+    .where("j.user_id", id)
+    .then(jokes => res.status(200).json(jokes))
+    .catch(err => res.status(500).json({ error: err }));
 });
 
 // get joke by id
-router.get("/", restricted, (req, res) => {
+router.get("/:id", (req, res) => {
   const id = req.params.id;
 
   Jokes.findJokeById(id)
@@ -59,9 +71,9 @@ router.put("/:id", restricted, (req, res) => {
   const id = req.params.id;
   const body = req.body;
 
-  Jokes.update(body, id)
+  Jokes.updateJoke(body, id)
     .then(updatedJoke => {
-      if (updated) {
+      if (updatedJoke) {
         res.status(200).json({ message: "Joke updated" });
       } else {
         res.status(404).json({ message: "Joke not found" });
@@ -77,7 +89,7 @@ router.put("/:id", restricted, (req, res) => {
 router.delete("/:id", restricted, (req, res) => {
   const id = req.params.id;
 
-  Jokes.remove(id)
+  Jokes.deleteJoke(id)
     .then(deleted => {
       if (deleted) {
         res.status(200).json({ message: "Joke deleted" });
