@@ -30,7 +30,7 @@ router.get("/", (req, res) => {
 });
 
 // get all private jokes
-router.get("/userJokes", restricted, (req, res) => {
+router.get("/privateJokes", restricted, (req, res) => {
   const user_id = req.decodedJWT.subject;
   console.log(user_id);
 

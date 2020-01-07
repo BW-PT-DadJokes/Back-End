@@ -19,7 +19,7 @@ https://dad-jokes-7.herokuapp.com/
 
 ## Registration
 
-POST to /api/auth/register
+**POST to /api/auth/register**
 
 ```
 {
@@ -32,7 +32,7 @@ returns an object containing the created user data and a token
 
 ## Login
 
-POST to /api/auth/login
+**POST to /api/auth/login**
 
 ```
 {
@@ -45,25 +45,25 @@ POST to /api/auth/login
 
 ## View Public Jokes
 
-GET from /api/jokes
+**GET from /api/jokes**
 
 \*returns an array containing the details of each joke as an object
 
 ## View Private Jokes
 
-GET from /api/jokes/userJokes
+**GET from /api/jokes/privateJokes**
 
 \*returns an array containing the details of each joke as an object
 
 ## View a Specific Joke
 
-GET from /api/jokes/:id
+**GET from /api/jokes/:id**
 
 \*returns an object containing the details of the specified joke
 
 ## Adding a Joke
 
-POST to /api/jokes
+**POST to /api/jokes**
 
 ```
 {
@@ -78,12 +78,12 @@ POST to /api/jokes
 
 ## Editing a Joke
 
-PUT on /api/jokes/:id
+**PUT on /api/jokes/:id**
 
 \*returns the message "Joke updated" if successful
 
 ## Deleting a Joke
 
-DELETE from /api/jokes/:id
+**DELETE from /api/jokes/:id**
 
 \*returns the message "Joke deleted" if successful

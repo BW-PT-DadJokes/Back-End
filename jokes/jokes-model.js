@@ -18,7 +18,7 @@ function findJokeBy(filter) {
 }
 
 async function addJoke(joke) {
-  const [id] = await db("jokes").insert(joke);
+  const [id] = await db("jokes").insert(joke, "id");
 
   return findJokeById(id);
 }
