@@ -18,7 +18,10 @@ server.use("/api/users", usersRouter);
 server.use("/api/jokes", jokesRouter);
 
 server.get("/", (req, res) => {
-  res.send("Server live");
+  res
+    .status(200)
+    .json({ api: "up" })
+    .send("Server live");
 });
 
 module.exports = server;
