@@ -6,16 +6,16 @@ https://dad-jokes-7.herokuapp.com/
 
 ## Endpoint Summary
 
-| Method | Endpoint             | Description           |
-| ------ | -------------------- | --------------------- |
-| POST   | /api/auth/register   | Register user         |
-| POST   | /api/auth/login      | Login                 |
-| GET    | /api/jokes           | Get all public jokes  |
-| GET    | /api/jokes/userJokes | Get all private jokes |
-| GET    | /api/jokes/:id       | Gets a specific joke  |
-| POST   | /api/jokes           | Add a new joke        |
-| PUT    | /api/jokes/:id       | Edit a joke           |
-| DELETE | /api/jokes/:id       | Delete a joke         |
+| Method | Endpoint            | Description                            |
+| ------ | ------------------- | -------------------------------------- |
+| POST   | /api/auth/register  | Register user                          |
+| POST   | /api/auth/login     | Login                                  |
+| GET    | /api/jokes          | Get all public jokes                   |
+| GET    | /api/jokes/allJokes | Get all jokes, including private jokes |
+| GET    | /api/jokes/:id      | Gets a specific joke                   |
+| POST   | /api/jokes          | Add a new joke                         |
+| PUT    | /api/jokes/:id      | Edit a joke                            |
+| DELETE | /api/jokes/:id      | Delete a joke                          |
 
 ## Registration
 
@@ -45,15 +45,16 @@ returns an object containing the created user data and a token
 
 ## View Public Jokes
 
-**GET from /api/jokes**
+**GET from /api/jokes/**
+
+\*returns an array containing the details of each public joke as an object
+
+## View All Jokes
+
+**GET from /api/jokes/allJokes**
 
 \*returns an array containing the details of each joke as an object
-
-## View Private Jokes
-
-**GET from /api/jokes/privateJokes**
-
-\*returns an array containing the details of each joke as an object
+\*this includes both private and public jokes
 
 ## View a Specific Joke
 

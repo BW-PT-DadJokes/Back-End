@@ -9,7 +9,9 @@ router.post("/", restricted, (req, res) => {
 
   Jokes.addJoke(joke)
     .then(saved => {
-      res.status(201).json({ created_joke: saved });
+      res
+        .status(201)
+        .json({ created_joke: saved, message: "Joke added successfully!" });
     })
     .catch(error => {
       console.log(error);
@@ -29,18 +31,15 @@ router.get("/", (req, res) => {
     });
 });
 
-// get all private jokes
-router.get("/privateJokes", restricted, (req, res) => {
-  const user_id = req.decodedJWT.subject;
-  console.log(user_id);
-
-  Jokes.findJokeBy({ user_id })
+// get all jokes including private
+router.get("/allJokes", restricted, (req, res) => {
+  Jokes.findJoke()
     .then(jokes => {
       res.status(200).json(jokes);
     })
     .catch(error => {
       console.log(error);
-      res.status(500).json({ message: "Could not get private jokes" });
+      res.status(500).json({ message: "Could not get jokes" });
     });
 });
 
