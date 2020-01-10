@@ -15,6 +15,9 @@
     "seed": "knex seed:run",
     "test": "cross-env DB_ENV=testing jest --watch"
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BW-PT-DadJokes/Back-End.git"
